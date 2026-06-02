@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EEG — Build Your Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="eeg-democratisation.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════ STEP 1: RESEARCH TEAM -->
+<div id="step-1" class="step active">
+
+  <header>
+    <div class="step-pill">Step 1 / 2</div>
+    <div class="header-tag">EEG Manifesto · Democratization</div>
+    <h1>Build your<br><em>research team</em></h1>
+    <p class="subtitle">Choose <strong>4 researchers</strong> with complementary expertise.<br>A strong team covers all key EEG competencies.</p>
+  </header>
+
+  <section class="grid-section">
+    <div class="characters-grid" id="characters-grid"></div>
+  </section>
+
+  <section class="team-section">
+    <div class="team-header">
+      <h2>Your Team</h2>
+      <span class="team-counter" id="team-counter">0 / 4</span>
+    </div>
+    <div class="team-slots" id="team-slots">
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+    </div>
+    <div class="tags-row" id="tags-row"></div>
+    <button class="validate-btn" id="validate-team-btn" disabled>
+      Validate Team — Proceed to Step 2 →
+    </button>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════ STEP 2: PARTICIPANTS -->
+<div id="step-2" class="step">
+
+  <header class="header-step2">
+    <div class="step-pill">Step 2 / 2</div>
+    <div class="header-tag">EEG Manifesto · Democratization</div>
+    <h1>Select your<br><em>participants</em></h1>
+    <p class="subtitle">
+      Choose <strong>4 participants</strong> from the profiles below.<br>
+      EEG science has long ignored certain populations — will you include them?
+    </p>
+  </header>
+
+  <section class="grid-section">
+    <div class="legend-bar">
+      <span class="legend-item">⬜ Classic EEG profile</span>
+      <span class="legend-item legend-under">🌟 Underrepresented profile</span>
+    </div>
+    <div class="characters-grid" id="participants-grid"></div>
+  </section>
+
+  <section class="team-section">
+    <div class="team-header">
+      <h2>Your Participants</h2>
+      <span class="team-counter" id="participants-counter">0 / 4</span>
+    </div>
+    <div class="team-slots" id="participants-slots">
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+      <div class="slot empty"><span class="slot-hint">+</span></div>
+    </div>
+    <div class="tags-row" id="participants-tags-row"></div>
+    <button class="validate-btn" id="validate-participants-btn" disabled>
+      Validate Participants →
+    </button>
+  </section>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" id="modal">
+    <div class="modal-icon" id="modal-icon"></div>
+    <h3 id="modal-title"></h3>
+    <p id="modal-message"></p>
+    <button class="modal-btn" id="modal-btn">OK</button>
+  </div>
+</div>
+
+<script src="eeg-democratisation.js"></script>
+</body>
+</html>

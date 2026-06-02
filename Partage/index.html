@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jusqu'où va ta recherche ?</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Fraunces:ital,wght@0,300;0,700;0,900;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- ÉCRAN TITRE -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-content">
+    <div class="tag">An interactive experience</div>
+    <h1>How far does<br/><em>your research go?</em></h1>
+    <p class="intro-desc">Jean-Mi has just completed his EEG study.<br/>His results are solid… but one question remains:</p>
+    <p class="intro-question">Who will actually benefit from it?</p>
+    <button class="btn-primary" onclick="startGame()">Start the adventure</button>
+  </div>
+  <div class="scroll-hint">↓</div>
+</div>
+
+<!-- ÉCRAN JEU -->
+<div id="screen-game" class="screen">
+  <header class="game-header">
+    <div class="header-left">
+      <span class="jean-mi">🧠 Jean-Mi</span>
+      <span class="step-label" id="step-label">Step 1/6</span>
+    </div>
+    <div class="header-right">
+      <div class="score-item">
+        <span class="score-icon">🌍</span>
+        <span id="score-reach">0</span>
+        <span class="score-name">reach</span>
+      </div>
+      <div class="score-item">
+        <span class="score-icon">⚖️</span>
+        <span id="score-equity">0</span>
+        <span class="score-name">equity</span>
+      </div>
+      <div class="score-item">
+        <span class="score-icon">🔬</span>
+        <span id="score-science">0</span>
+        <span class="score-name">science</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="game-body">
+    <!-- Panneau gauche: contexte + choix -->
+    <div class="panel-left">
+      <div class="context-card" id="context-card">
+        <div class="context-step" id="context-step"></div>
+        <h2 id="context-title"></h2>
+        <p id="context-text"></p>
+        <div class="jean-mi-bubble" id="jean-mi-bubble"></div>
+      </div>
+      <div class="choices-container" id="choices-container"></div>
+    </div>
+
+    <!-- Panneau droit: carte + populations -->
+    <div class="panel-right">
+      <div class="world-section">
+        <h3 class="panel-title">Carte de diffusion</h3>
+        <div class="world-map" id="world-map">
+          <svg viewBox="0 0 800 400" id="map-svg">
+            <defs>
+              <clipPath id="clip-europe">
+                <ellipse cx="420" cy="300" rx="200" ry="2000"/>
+              </clipPath>
+              <clipPath id="clip-north-america">
+                <ellipse cx="180" cy="200" rx="300" ry="600"/>
+              </clipPath>
+              <clipPath id="clip-south-america">
+                <ellipse cx="240" cy="280" rx="75" ry="65"/>
+              </clipPath>
+              <clipPath id="clip-africa">
+                <ellipse cx="430" cy="260" rx="60" ry="75"/>
+              </clipPath>
+              <clipPath id="clip-asia">
+                <ellipse cx="580" cy="160" rx="95" ry="110"/>
+              </clipPath>
+              <clipPath id="clip-oceania">
+                <ellipse cx="660" cy="295" rx="45" ry="40"/>
+              </clipPath>
+            </defs>
+
+            <!-- Europe -->
+            <image href="https://github.com/Charline0/EEG_europe/blob/main/europe.png?raw=true"
+              x="370" y="105" width="100" height="80"
+              clip-path="url(#clip-europe)"
+              class="continent" id="c-europe"
+              preserveAspectRatio="xMidYMid slice"/>
+            <ellipse cx="420" cy="145" rx="60" ry="50"
+              class="continent-border" id="c-europe-border"/>
+
+            <!-- Amérique du Nord -->
+            <image href="https://github.com/Charline0/EEG_images/blob/main/north-america.png?raw=true"
+              x="130" y="100" width="150" height="110"
+              clip-path="url(#clip-north-america)"
+              class="continent" id="c-north-america"
+              preserveAspectRatio="xMidYMid slice"/>
+            <ellipse cx="210" cy="145" rx="100" ry="65"
+              class="continent-border" id="c-north-america-border"/>
+
+            <!-- Amérique du Sud -->
+            <image href="https://github.com/Charline0/EEG_south_america/blob/main/south-america.png?raw=true"
+              x="185" y="215" width="65" height="130"
+              clip-path="url(#clip-south-america)"
+              class="continent" id="c-south-america"
+              preserveAspectRatio="xMidYMid slice"/>
+            <ellipse cx="220" cy="280" rx="50" ry="65"
+              class="continent-border" id="c-south-america-border"/>
+
+            <!-- Afrique -->
+            <image href="https://github.com/Charline0/EEG_images/blob/main/africa.png?raw=true"
+              x="370" y="195" width="110" height="145"
+              clip-path="url(#clip-africa)"
+              class="continent" id="c-africa"
+              preserveAspectRatio="xMidYMid slice"/>
+            <ellipse cx="420" cy="270" rx="70" ry="75"
+              class="continent-border" id="c-africa-border"/>
+
+            <!-- Asie -->
+            <image href="https://github.com/Charline0/EEG_images/blob/main/asia.png?raw=true"
+              x="490" y="100" width="180" height="120"
+              clip-path="url(#clip-asia)"
+              class="continent" id="c-asia"
+              preserveAspectRatio="xMidYMid slice"/>
+            <ellipse cx="590" cy="160" rx="95" ry="90"
+              class="continent-border" id="c-asia-border"/>
+
+            <!-- Océanie -->
+            <image href="https://github.com/Charline0/EEG_images/blob/main/oceania.png?raw=true"
+              x="615" y="265" width="90" height="60"
+              clip-path="url(#clip-oceania)"
+              class="continent" id="c-oceania"
+              preserveAspectRatio="xMidYMid slice"/>
+            <ellipse cx="660" cy="295" rx="45" ry="40"
+              class="continent-border" id="c-oceania-border"/>
+
+            <!-- Lignes de diffusion -->
+            <g id="diffusion-lines"></g>
+            <!-- Points de diffusion -->
+            <g id="diffusion-dots"></g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="populations-section">
+        <h3 class="panel-title">Affected populations</h3>
+        <div class="populations-grid" id="populations-grid">
+          <div class="pop-card" id="pop-researchers" data-pop="researchers">
+            <span class="pop-icon">🔬</span>
+            <span class="pop-name">Researchers</span>
+            <div class="pop-bar"><div class="pop-fill" style="width:0%"></div></div>
+          </div>
+          <div class="pop-card" id="pop-clinicians" data-pop="clinicians">
+            <span class="pop-icon">🩺</span>
+            <span class="pop-name">Clinicians</span>
+            <div class="pop-bar"><div class="pop-fill" style="width:0%"></div></div>
+          </div>
+          <div class="pop-card" id="pop-patients" data-pop="patients">
+            <span class="pop-icon">🤝</span>
+            <span class="pop-name">Patients</span>
+            <div class="pop-bar"><div class="pop-fill" style="width:0%"></div></div>
+          </div>
+          <div class="pop-card" id="pop-citizens" data-pop="citizens">
+            <span class="pop-icon">🏘️</span>
+            <span class="pop-name">Citizens</span>
+            <div class="pop-bar"><div class="pop-fill" style="width:0%"></div></div>
+          </div>
+          <div class="pop-card" id="pop-policymakers" data-pop="policymakers">
+            <span class="pop-icon">🏛️</span>
+            <span class="pop-name">Policymakers</span>
+            <div class="pop-bar"><div class="pop-fill" style="width:0%"></div></div>
+          </div>
+          <div class="pop-card" id="pop-global-south" data-pop="global-south">
+            <span class="pop-icon">🌍</span>
+            <span class="pop-name">Global South</span>
+            <div class="pop-bar"><div class="pop-fill" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chain-section">
+        <h3 class="panel-title">Reuse chains</h3>
+        <div class="chain-viz" id="chain-viz">
+          <div class="chain-node active" id="chain-lab">🧪 Lab</div>
+          <div class="chain-arrow" id="arrow-1">→</div>
+          <div class="chain-node" id="chain-pub">📄 Publication</div>
+          <div class="chain-arrow" id="arrow-2">→</div>
+          <div class="chain-node" id="chain-clinic">🏥 Clinic</div>
+          <div class="chain-arrow" id="arrow-3">→</div>
+          <div class="chain-node" id="chain-society">🌐 Society</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback après choix -->
+  <div class="feedback-overlay" id="feedback-overlay">
+    <div class="feedback-card" id="feedback-card">
+      <div class="feedback-icon" id="feedback-icon"></div>
+      <h3 id="feedback-title"></h3>
+      <p id="feedback-text"></p>
+      <div class="feedback-scores" id="feedback-scores"></div>
+      <div class="feedback-actions">
+        <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none">← Go Back</button>
+        <button class="btn-next" id="btn-next" onclick="nextStep()">Continue →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ÉCRAN RÉSULTAT -->
+<div id="screen-result" class="screen">
+  <div class="result-content">
+    <div class="result-header">
+      <div class="result-icon" id="result-icon">🌍</div>
+      <h2 id="result-title"></h2>
+      <p id="result-subtitle"></p>
+    </div>
+
+    <div class="result-scores">
+      <div class="result-score-item">
+        <div class="rscore-label">🌍 Global reach</div>
+        <div class="rscore-bar"><div class="rscore-fill" id="r-reach-bar"></div></div>
+        <div class="rscore-val" id="r-reach-val"></div>
+      </div>
+      <div class="result-score-item">
+        <div class="rscore-label">⚖️ Equity</div>
+        <div class="rscore-bar"><div class="rscore-fill" id="r-equity-bar"></div></div>
+        <div class="rscore-val" id="r-equity-val"></div>
+      </div>
+      <div class="result-score-item">
+        <div class="rscore-label">🔬 Scientific impact</div>
+        <div class="rscore-bar"><div class="rscore-fill" id="r-science-bar"></div></div>
+        <div class="rscore-val" id="r-science-val"></div>
+      </div>
+    </div>
+
+    <div class="lesson-box" id="lesson-box"></div>
+
+    <div class="result-message">
+      <p>💥 <strong>Science only has an impact if it circulates.</strong></p>
+      <p>Disseminating ≠ just publishing. Accessibility is an active choice.</p>
+    </div>
+
+    <button class="btn-primary" onclick="restartGame()">🔄 Play Again</button>
+  </div>
+</div>
+
+<!-- Notification toast -->
+<div class="toast" id="toast"></div>
+
+<script src="game.js"></script>
+</body>
+</html>
